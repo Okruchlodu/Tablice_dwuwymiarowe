@@ -1,1 +1,113 @@
+using System;
 
+class Program
+{
+    static void Main()
+    {
+        int[,] tablica = new int[10, 10];
+
+        for (int i = 0; i < 10; i++)
+        {
+            if (i % 2 == 0)
+            {
+                for (int j = 0; j < 10; j++)
+                {
+                    tablica[i, j] = i * 10 + j + 1;
+                }
+            }
+            else
+            {
+                for (int j = 9; j >= 0; j--)
+                {
+                    tablica[i, 9 - j] = i * 10 + j + 1;
+                }
+            }
+        }
+
+        for (int i = 0; i < 10; i++)
+        {
+            for (int j = 0; j < 10; j++)
+            {
+                Console.Write(tablica[i, j] + " ");
+            }
+            Console.WriteLine();
+        }
+    }
+}
+Ten program używa pętli for do iteracji po wierszach i kolumnach tablicy. Dla parzystych wierszy (o indeksach 0, 2, 4 itd.), liczby są wypełniane rosnąco od lewej do prawej. Dla nieparzystych wierszy (o indeksach 1, 3, 5 itd.), liczby są wypełniane malejąco od prawej do lewej. Następnie, w drugiej pętli, program wypisuje zawartość tablicy na ekranie.
+
+
+
+
+
+User
+Napisz program, wypełniający tablicę 10×10 typu int kolejnymi liczbami naturalnymi, analogicznie do 
+schematu przedstawionego w przykładzie.
+Wypisz tę tablicę na ekranie. Wypełnianie koniecznie wykonaj pętlami!
+Przykład 4x4
+1 2 3 4
+12 13 14 5
+11 16 15 6
+10 9 8 7
+ChatGPT
+Oto poprawiony program w języku C#, który wypełnia tablicę 10x10 typu int zgodnie z podanymi warunkami:
+
+csharp
+Copy code
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        int[,] tablica = new int[10, 10];
+        int liczba = 1;
+        int lewy = 0, prawy = 9, gora = 0, dol = 9;
+
+        while (lewy <= prawy && gora <= dol)
+        {
+            for (int i = lewy; i <= prawy; i++)
+            {
+                tablica[gora, i] = liczba;
+                liczba++;
+            }
+            gora++;
+
+            for (int i = gora; i <= dol; i++)
+            {
+                tablica[i, prawy] = liczba;
+                liczba++;
+            }
+            prawy--;
+
+            if (gora <= dol)
+            {
+                for (int i = prawy; i >= lewy; i--)
+                {
+                    tablica[dol, i] = liczba;
+                    liczba++;
+                }
+                dol--;
+            }
+
+            if (lewy <= prawy)
+            {
+                for (int i = dol; i >= gora; i--)
+                {
+                    tablica[i, lewy] = liczba;
+                    liczba++;
+                }
+                lewy++;
+            }
+        }
+
+        for (int i = 0; i < 10; i++)
+        {
+            for (int j = 0; j < 10; j++)
+            {
+                Console.Write(tablica[i, j] + " ");
+            }
+            Console.WriteLine();
+        }
+    }
+}
