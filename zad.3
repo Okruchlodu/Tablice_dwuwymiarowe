@@ -9,7 +9,7 @@ class Program
 
         do
         {
-            Console.Write("Podaj rozmiar tablicy (liczba wierszy i kolumn): ");
+            Console.Write("Podaj rozmiar tablicy: ");
             string input = Console.ReadLine();
 
             if (int.TryParse(input, out rozmiar) && rozmiar > 0)
@@ -18,7 +18,7 @@ class Program
             }
             else
             {
-                Console.WriteLine("Niepoprawny rozmiar tablicy. Spróbuj ponownie.");
+                Console.WriteLine("Błędny rozmiar tablicy. Spróbuj podobnie");
             }
         } while (!poprawnyRozmiar);
 
