@@ -9,7 +9,7 @@ class Program
 
         do
         {
-            Console.Write("Podaj rozmiar tablicy: ");
+            Console.Write("Podaj rozmiar tablicy (liczba wierszy i kolumn): ");
             string input = Console.ReadLine();
 
             if (int.TryParse(input, out rozmiar) && rozmiar > 0)
@@ -18,7 +18,7 @@ class Program
             }
             else
             {
-                Console.WriteLine("Błędny rozmiar tablicy. Spróbuj podobnie");
+                Console.WriteLine("Niepoprawny rozmiar tablicy. Wprowadź dodatnią liczbę całkowitą.");
             }
         } while (!poprawnyRozmiar);
 
@@ -42,28 +42,22 @@ class Program
             }
             prawy--;
 
-            if (gora <= dol)
+            for (int i = prawy; i >= lewy; i--)
             {
-                for (int i = prawy; i >= lewy; i--)
-                {
-                    tablica[dol, i] = liczba;
-                    liczba++;
-                }
-                dol--;
+                tablica[dol, i] = liczba;
+                liczba++;
             }
+            dol--;
 
-            if (lewy <= prawy)
+            for (int i = dol; i >= gora; i--)
             {
-                for (int i = dol; i >= gora; i--)
-                {
-                    tablica[i, lewy] = liczba;
-                    liczba++;
-                }
-                lewy++;
+                tablica[i, lewy] = liczba;
+                liczba++;
             }
+            lewy++;
         }
 
-        Console.WriteLine("\nWypełniona tablica:");
+        Console.WriteLine("Wypełniona tablica:");
         for (int i = 0; i < rozmiar; i++)
         {
             for (int j = 0; j < rozmiar; j++)
