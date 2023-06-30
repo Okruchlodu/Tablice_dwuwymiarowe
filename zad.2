@@ -5,105 +5,53 @@ class Program
     static void Main()
     {
         int[,] tablica = new int[10, 10];
-
-        for (int i = 0; i < 10; i++)
-        {
-            if (i % 2 == 0)
-            {
-                for (int j = 0; j < 10; j++)
-                {
-                    tablica[i, j] = i * 10 + j + 1;
-                }
-            }
-            else
-            {
-                for (int j = 9; j >= 0; j--)
-                {
-                    tablica[i, 9 - j] = i * 10 + j + 1;
-                }
-            }
-        }
-
-        for (int i = 0; i < 10; i++)
-        {
-            for (int j = 0; j < 10; j++)
-            {
-                Console.Write(tablica[i, j] + " ");
-            }
-            Console.WriteLine();
-        }
-    }
-}
-Ten program używa pętli for do iteracji po wierszach i kolumnach tablicy. Dla parzystych wierszy (o indeksach 0, 2, 4 itd.), liczby są wypełniane rosnąco od lewej do prawej. Dla nieparzystych wierszy (o indeksach 1, 3, 5 itd.), liczby są wypełniane malejąco od prawej do lewej. Następnie, w drugiej pętli, program wypisuje zawartość tablicy na ekranie.
-
-
-
-
-
-User
-Napisz program, wypełniający tablicę 10×10 typu int kolejnymi liczbami naturalnymi, analogicznie do 
-schematu przedstawionego w przykładzie.
-Wypisz tę tablicę na ekranie. Wypełnianie koniecznie wykonaj pętlami!
-Przykład 4x4
-1 2 3 4
-12 13 14 5
-11 16 15 6
-10 9 8 7
-ChatGPT
-Oto poprawiony program w języku C#, który wypełnia tablicę 10x10 typu int zgodnie z podanymi warunkami:
-
-csharp
-Copy code
-using System;
-
-class Program
-{
-    static void Main()
-    {
-        int[,] tablica = new int[10, 10];
         int liczba = 1;
-        int lewy = 0, prawy = 9, gora = 0, dol = 9;
+        int wiersze = 10;
+        int kolumny = 10;
+        int dol = wiersze - 1;
+        int prawo = kolumny - 1;
+        int gora = 0;
+        int lewo = 0;
 
-        while (lewy <= prawy && gora <= dol)
+        while (liczba <= wiersze * kolumny)
         {
-            for (int i = lewy; i <= prawy; i++)
+            // Wypełnianie wiersza od lewej do prawej
+            for (int j = lewo; j <= prawo; j++)
             {
-                tablica[gora, i] = liczba;
+                tablica[gora, j] = liczba;
                 liczba++;
             }
             gora++;
 
+            // Wypełnianie kolumny od góry do dołu
             for (int i = gora; i <= dol; i++)
             {
-                tablica[i, prawy] = liczba;
+                tablica[i, prawo] = liczba;
                 liczba++;
             }
-            prawy--;
+            prawo--;
 
-            if (gora <= dol)
+            // Wypełnianie wiersza od prawej do lewej
+            for (int j = prawo; j >= lewo; j--)
             {
-                for (int i = prawy; i >= lewy; i--)
-                {
-                    tablica[dol, i] = liczba;
-                    liczba++;
-                }
-                dol--;
+                tablica[dol, j] = liczba;
+                liczba++;
             }
+            dol--;
 
-            if (lewy <= prawy)
+            // Wypełnianie kolumny od dołu do góry
+            for (int i = dol; i >= gora; i--)
             {
-                for (int i = dol; i >= gora; i--)
-                {
-                    tablica[i, lewy] = liczba;
-                    liczba++;
-                }
-                lewy++;
+                tablica[i, lewo] = liczba;
+                liczba++;
             }
+            lewo++;
         }
 
-        for (int i = 0; i < 10; i++)
+        Console.WriteLine("Wypełniona tablica:");
+        for (int i = 0; i < wiersze; i++)
         {
-            for (int j = 0; j < 10; j++)
+            for (int j = 0; j < kolumny; j++)
             {
                 Console.Write(tablica[i, j] + " ");
             }
